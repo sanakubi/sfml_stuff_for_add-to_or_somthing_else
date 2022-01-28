@@ -7,7 +7,7 @@ using namespace sf;
 int main() {
     RenderWindow window(VideoMode(500, 500), "- - -");
 
-    RectangleShape strelka(Vector2f(5, 225));
+    RectangleShape strelka(Vector2f(2, 225));
     CircleShape crc;
     Vector2f delta;
 
@@ -19,12 +19,12 @@ int main() {
     strelka.setFillColor(Color(255, 0, 0));
 
     delta = strelka.getPosition() - crc.getPosition();
-    
-    float ratio = atan2(delta.y, delta.x); 
+ 
+    float ratio = atan2(delta.y - 11, delta.x - 11); 
     
     std::cout << ratio << " " << ratio * (180.0 / 3.14) << std::endl;
     
-    strelka.setRotation(90 + ratio * (180.0 / 3.14)); 
+    strelka.setRotation(90 + ratio * (180.0 / 3.14));
     
 
 
