@@ -19,7 +19,6 @@ int main() {
 
     RectangleShape strelka(Vector2f(2, 225));
     CircleShape crc;
-    Vector2f delta;
 
     crc.setPosition(1, 1);
     crc.setFillColor(Color(30, 144, 255, 255));
@@ -37,12 +36,11 @@ int main() {
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed)
                 window.close();
-            if (event.type == Event::MouseMoved)
-            {
+            if (event.type == Event::MouseMoved){
                 std::cout << "new mouse x: " << event.mouseMove.x << std::endl;
                 std::cout << "new mouse y: " << event.mouseMove.y << std::endl;
 
-                crc.setPosition(event.mouseMove.x, event.mouseMove.y);
+                crc.setPosition(event.mouseMove.x - 11, event.mouseMove.y - 11);
                 ratio_upd(crc, strelka);
             }
         }
