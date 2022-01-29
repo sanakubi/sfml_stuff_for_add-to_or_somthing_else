@@ -14,8 +14,6 @@ void ratio_upd(CircleShape& crc, RectangleShape& strel) {
 }
 
 int main() {
-    int W, H;
-    W = 1; H = 1;
 
     RenderWindow window(VideoMode(500, 500), "- - -");
 
@@ -23,7 +21,7 @@ int main() {
     CircleShape crc;
     Vector2f delta;
 
-    crc.setPosition(W, H);
+    crc.setPosition(1, 1);
     crc.setFillColor(Color(30, 144, 255, 255));
     crc.setRadius(10);
 
@@ -44,10 +42,7 @@ int main() {
                 std::cout << "new mouse x: " << event.mouseMove.x << std::endl;
                 std::cout << "new mouse y: " << event.mouseMove.y << std::endl;
 
-                W = event.mouseMove.x; 
-                H = event.mouseMove.y;
-
-                crc.setPosition(W, H);              
+                crc.setPosition(event.mouseMove.x, event.mouseMove.y);
                 ratio_upd(crc, strelka);
             }
         }
