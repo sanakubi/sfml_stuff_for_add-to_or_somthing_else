@@ -16,9 +16,10 @@ void ratio_upd(CircleShape& crc, RectangleShape& strel) {
 int main() {
 
     RenderWindow window(VideoMode(500, 500), "- - -");
-
     RectangleShape strelka(Vector2f(2, 225));
     CircleShape crc;
+    VertexArray point(Points, 1000);
+    int x = 0;
 
     crc.setPosition(1, 1);
     crc.setFillColor(Color(30, 144, 255, 255));
@@ -42,9 +43,15 @@ int main() {
 
                 crc.setPosition(event.mouseMove.x - 11, event.mouseMove.y - 11);
                 ratio_upd(crc, strelka);
+
+                point[x].position = Vector2f(event.mouseMove.x, event.mouseMove.y);
+                point[x].color = Color(255, 0, 200);
+                if (x >= 999) x = 0;
+                x++;
             }
         }
         
+        window.draw(point);
         window.draw(strelka);
         window.draw(crc);
         window.display();
