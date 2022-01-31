@@ -30,10 +30,9 @@ int main() {
     
     ratio_upd(crc, strelka);
     
-
     while (window.isOpen()) {
         Event event;
-        
+        window.clear();
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed)
                 window.close();
@@ -55,7 +54,7 @@ int main() {
         window.draw(strelka);
         window.draw(crc);
         window.display();
-        window.clear();
     }
     return 0;
 }
+  
