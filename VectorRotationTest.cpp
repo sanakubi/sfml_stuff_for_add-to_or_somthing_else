@@ -13,10 +13,19 @@ void ratio_upd(CircleShape& crc, RectangleShape& strel) {
     strel.setRotation(90 + ratio * (180.0 / 3.14));
 }
 
+void strelkpos(Event& event, RectangleShape& strel) {
+    switch (event.key.code) {
+    case Keyboard::Up: strel.move(0, -1); break;
+    case Keyboard::Down: strel.move(0, 1); break;
+    case Keyboard::Right: strel.move(1, 0); break;
+    case Keyboard::Left: strel.move(-1, 0); break;
+    }
+}
+
 int main() {
 
     RenderWindow window(VideoMode(500, 500), "- - -");
-    RectangleShape strelka(Vector2f(2, 225));
+    RectangleShape strelka(Vector2f(2, 75));
     CircleShape crc;
     VertexArray point(Points, 1000);
     int x = 0;
@@ -27,16 +36,17 @@ int main() {
 
     strelka.setPosition(250, 250);
     strelka.setFillColor(Color(255, 0, 0));
-    
+
     ratio_upd(crc, strelka);
-    
+
     while (window.isOpen()) {
         Event event;
         window.clear();
         while (window.pollEvent(event)) {
+
             if (event.type == Event::Closed)
                 window.close();
-            if (event.type == Event::MouseMoved){
+            if (event.type == Event::MouseMoved) {
                 std::cout << "new mouse x: " << event.mouseMove.x << std::endl;
                 std::cout << "new mouse y: " << event.mouseMove.y << std::endl;
 
@@ -48,8 +58,13 @@ int main() {
                 if (x >= 999) x = 0;
                 x++;
             }
+            if (event.type == Event::KeyPressed) {
+                strelkpos(event, strelka);
+                ratio_upd(crc, strelka);
+            }
+            
         }
-        
+
         window.draw(point);
         window.draw(strelka);
         window.draw(crc);
@@ -57,4 +72,3 @@ int main() {
     }
     return 0;
 }
-  
