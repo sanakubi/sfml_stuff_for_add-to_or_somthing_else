@@ -4,6 +4,8 @@
 
 using namespace sf;
 
+//НУЖНО НАПОМНИТЬ САМОМУ СЕБЕ, ЧТО Я РЕШИЛСЯ ДЕЛАТЬ ИГРУ...
+
 void ratio_upd(CircleShape& crc, RectangleShape& strel) {
     Vector2f delta;
     delta = strel.getPosition() - crc.getPosition();
@@ -12,6 +14,14 @@ void ratio_upd(CircleShape& crc, RectangleShape& strel) {
 }
 
 void strelkpos(Event& event, RectangleShape& strel) {
+    /*
+    switch (event.key.code) {
+        case Keyboard::Up: strel.move(0, -3); break;
+        case Keyboard::Down: strel.move(0, 3); break;
+        case Keyboard::Right: strel.move(3, 0); break;
+        case Keyboard::Left: strel.move(-3, 0); break;
+    }
+    */
     if(event.key.code == Keyboard::Up) strel.move(0, -3);
     if(event.key.code == Keyboard::Down) strel.move(0, 3);
     if(event.key.code == Keyboard::Right) strel.move(3, 0);
@@ -65,6 +75,7 @@ int main() {
         window.draw(point);
         window.draw(strelka);
         window.draw(crc);
+        window.setMouseCursorVisible(false);
         window.display();
     }
 
