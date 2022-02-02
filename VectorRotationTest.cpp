@@ -12,12 +12,19 @@ void ratio_upd(CircleShape& crc, RectangleShape& strel) {
 }
 
 void strelkpos(Event& event, RectangleShape& strel) {
+    /*
     switch (event.key.code) {
-        case Keyboard::Up: strel.move(0, -1); break;
-        case Keyboard::Down: strel.move(0, 1); break;
-        case Keyboard::Right: strel.move(1, 0); break;
-        case Keyboard::Left: strel.move(-1, 0); break;
+        case Keyboard::Up: strel.move(0, -3); break;
+        case Keyboard::Down: strel.move(0, 3); break;
+        case Keyboard::Right: strel.move(3, 0); break;
+        case Keyboard::Left: strel.move(-3, 0); break;
     }
+    */
+    if(event.key.code == Keyboard::Up) strel.move(0, -3);
+    if(event.key.code == Keyboard::Down) strel.move(0, 3);
+    if(event.key.code == Keyboard::Right) strel.move(3, 0);
+    if(event.key.code == Keyboard::Left) strel.move(-3, 0);
+
 }
 
 int main() {
@@ -25,7 +32,7 @@ int main() {
     RenderWindow window(VideoMode(500, 500), "- - -");
     RectangleShape strelka(Vector2f(2, 75));
     CircleShape crc;
-    VertexArray point(Points, 1000);
+    VertexArray point(Points, 50);
     int x = 0;
 
     crc.setPosition(1, 1);
@@ -39,7 +46,6 @@ int main() {
 
     while (window.isOpen()) {
         Event event;
-        window.clear();
         while (window.pollEvent(event)) {
 
             if (event.type == Event::Closed)
@@ -52,7 +58,7 @@ int main() {
 
                 point[x].position = Vector2f(event.mouseMove.x, event.mouseMove.y);
                 point[x].color = Color(255, 0, 200);
-                if (x >= 999) x = 0;
+                if (x >= 49) x = 0;
                 x++;
             }
 
@@ -60,9 +66,10 @@ int main() {
                 strelkpos(event, strelka);
                 ratio_upd(crc, strelka);
             }
-            
+
         }
 
+        window.clear();
         window.draw(point);
         window.draw(strelka);
         window.draw(crc);
