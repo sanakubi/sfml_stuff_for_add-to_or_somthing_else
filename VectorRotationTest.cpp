@@ -14,10 +14,12 @@ void ratio_upd(CircleShape& crc, RectangleShape& strel) {
 }
 
 void strelkpos(Event& event, RectangleShape& strel) {
-    if(event.key.code == Keyboard::Up) strel.move(0, -3);
-    if(event.key.code == Keyboard::Down) strel.move(0, 3);
-    if(event.key.code == Keyboard::Right) strel.move(3, 0);
-    if(event.key.code == Keyboard::Left) strel.move(-3, 0);
+    uint8_t speed = 3;
+    if (event.key.shift) speed = 10;
+    if (event.key.code == Keyboard::Up) strel.move(0, -1 * speed);
+    if (event.key.code == Keyboard::Down) strel.move(0, speed);
+    if (event.key.code == Keyboard::Right) strel.move(speed, 0);
+    if (event.key.code == Keyboard::Left) strel.move(-1 * speed, 0);
 
 }
 
