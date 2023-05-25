@@ -4,6 +4,7 @@
 
 using namespace sf;
 
+
 void ratio_upd(CircleShape& crc, RectangleShape& strel) {
     Vector2f delta;
     delta = strel.getPosition() - crc.getPosition();
@@ -23,7 +24,7 @@ void strelkpos(Event& event, RectangleShape& strel) {
 
 int main() {
 
-    RenderWindow window(VideoMode(500, 500), "- - -");
+    RenderWindow window(VideoMode(500, 500), "- arrows -");
     RectangleShape strelka(Vector2f(2, 75));
     
     std::vector<RectangleShape> ars;
@@ -66,6 +67,12 @@ int main() {
 
                 for (int i = 0; i < 50; i++) {
                     ratio_upd(crc, ars[i]);
+                    int x, y; x = y = 0;
+                    x = event.mouseMove.x - i*10;
+                    y = event.mouseMove.y - i*10;
+                    int longn = sqrt(pow(x,2) + pow(y,2));
+
+                    ars[i].setSize(Vector2f(2, longn));
                 }
             }
 
