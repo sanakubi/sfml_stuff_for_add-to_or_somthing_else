@@ -4,8 +4,6 @@
 
 using namespace sf;
 
-//НУЖНО НАПОМНИТЬ САМОМУ СЕБЕ, ЧТО Я РЕШИЛСЯ ДЕЛАТЬ ИГРУ...
-
 void ratio_upd(CircleShape& crc, RectangleShape& strel) {
     Vector2f delta;
     delta = strel.getPosition() - crc.getPosition();
@@ -27,6 +25,15 @@ int main() {
 
     RenderWindow window(VideoMode(500, 500), "- - -");
     RectangleShape strelka(Vector2f(2, 75));
+    
+    std::vector<RectangleShape> ars;
+    for (int i = 0; i < 50; i++) ars.push_back(RectangleShape(Vector2f(2, 75)));
+    
+    for (int i = 0; i < 50; i++) {
+        ars[i].setPosition(i*10,i*10);
+        ars[i].setFillColor(Color(255, 0, 0));
+    }
+    
     CircleShape crc;
     VertexArray point(Points, 50);
     int x = 0;
@@ -56,6 +63,10 @@ int main() {
                 point[x].color = Color(255, 0, 200);
                 if (x >= 49) x = 0;
                 x++;
+
+                for (int i = 0; i < 50; i++) {
+                    ratio_upd(crc, ars[i]);
+                }
             }
 
             if (event.type == Event::KeyPressed) {
@@ -66,6 +77,11 @@ int main() {
         }
 
         window.clear();
+
+        for (int i = 0; i < 50; i++) {
+            window.draw(ars[i]);
+        }
+
         window.draw(point);
         window.draw(strelka);
         window.draw(crc);
