@@ -26,15 +26,15 @@ int main() {
 
     RenderWindow window(VideoMode(500, 500), "- arrows -");
     RectangleShape strelka(Vector2f(2, 75));
-    
+
     std::vector<RectangleShape> ars;
     for (int i = 0; i < 50; i++) ars.push_back(RectangleShape(Vector2f(2, 75)));
-    
+
     for (int i = 0; i < 50; i++) {
-        ars[i].setPosition(i*10,i*10);
+        ars[i].setPosition(i * 10, i * 10);
         ars[i].setFillColor(Color(255, 0, 0));
     }
-    
+
     CircleShape crc;
     VertexArray point(Points, 50);
     int x = 0;
@@ -48,8 +48,27 @@ int main() {
 
     ratio_upd(crc, strelka);
 
+    int grad, dly;
+    grad = dly = 0;
+
+    Event event;
+    
     while (window.isOpen()) {
-        Event event;
+
+        if (!(dly % 9)) {
+
+            for (int i = 0; i < 50; i++) {
+                Vector2f tmp_axy = ars[i].getPosition();
+
+                int x_ = 250 + round(200 * cos((i * 10 + grad) * 3.14 / 180));
+                int y_ = 250 + round(200 * sin((i * 10 + grad) * 3.14 / 180));
+
+                ars[i].setPosition(x_, y_);
+            }
+            grad++;
+        }
+        dly++;
+
         while (window.pollEvent(event)) {
 
             if (event.type == Event::Closed)
@@ -64,16 +83,6 @@ int main() {
                 point[x].color = Color(255, 0, 200);
                 if (x >= 49) x = 0;
                 x++;
-
-                for (int i = 0; i < 50; i++) {
-                    ratio_upd(crc, ars[i]);
-                    int x, y; x = y = 0;
-                    x = event.mouseMove.x - i*10;
-                    y = event.mouseMove.y - i*10;
-                    int longn = sqrt(pow(x,2) + pow(y,2));
-
-                    ars[i].setSize(Vector2f(2, longn));
-                }
             }
 
             if (event.type == Event::KeyPressed) {
@@ -83,14 +92,27 @@ int main() {
 
         }
 
+                for (int i = 0; i < 50; i++) {
+                    ratio_upd(crc, ars[i]);
+                    Vector2f tmp_arxy = ars[i].getPosition();
+
+                    int x, y; x = y = 0;
+                    x = event.mouseMove.x - tmp_arxy.x;
+                    y = event.mouseMove.y - tmp_arxy.y;
+
+                    int longn = sqrt(pow(x, 2) + pow(y, 2));
+
+                    ars[i].setSize(Vector2f(2, longn - 40));
+                }
+
         window.clear();
 
         for (int i = 0; i < 50; i++) {
             window.draw(ars[i]);
         }
 
-        window.draw(point);
-        window.draw(strelka);
+        //window.draw(point);
+        //window.draw(strelka);
         window.draw(crc);
         window.setMouseCursorVisible(false);
         window.display();
